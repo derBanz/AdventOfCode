@@ -12,12 +12,13 @@ with open(os.path.join(script_dir, "data.txt")) as file:
     for line in file:
         data.append(int(line))
 
-def get_relative_weight(data, compartments):
-    return sum(data) / compartments
+def get_relative_weight(data):
+    return sum(data) / COMPARTMENTS
 
 def generate_combinations(data):
     combinations = []
     current = []
+    minimum = len(data)
     data.sort(reverse=True)
     i = 0
     while i < len(data):
@@ -39,29 +40,16 @@ def generate_combinations(data):
     return combinations
 
 
-# def get_valid_combinations(possibilities):
-#     valid = []
-#     for x in possibilities:
-#         setx = set(x)
-#         for y in possibilities:
-#             sety = set(y)
-#             if len(setx.intersection(sety)) == 0:
-#                 valid.append(x)
-#                 break
-#     return valid
 def get_valid_combinations(possibilities):
     valid = []
-    min = 0
-    possibilities = sorted(possibilities)
     for x in possibilities:
-        if len(x) > min and len(valid) == 0:
-            min = len(x)
-        if len(x) > min:
-            break
-        else:
-            setx = set(x)
-            for y in possibilities:
-                sety = set(y)
+        setx = set(x)
+        for y in possibilities:
+            sety = set(y)
+            if len(setx.intersection(sety)) == 0:
+                valid.append(x)
+                break
+    return valid
 
 
 def get_smallest_package_amount_combinations(valid_possibilities):
@@ -79,14 +67,15 @@ def get_smallest_quantum_entanglement(optimal_possibilities):
     return optimum
     # return min([prod(x) for x in optimal_possibilities])
 
-RELATIVE_WEIGHT = get_relative_weight(data, 3)
+COMPARTMENTS = 4
+RELATIVE_WEIGHT = get_relative_weight(data)
 original_data = sorted([x for x in data])
 print(f"Original data:\n{original_data}")
 possibilities = generate_combinations(original_data)
 print(f"Possible package combinations to achieve an average of {RELATIVE_WEIGHT}:\n{len(possibilities)}")
-valid = get_valid_combinations(possibilities)
-print(f"Valid combinations:\n{len(valid)}")
-optimalpossibilities = get_smallest_package_amount_combinations(valid)
+# valid = get_valid_combinations(possibilities)
+# print(f"Valid combinations:\n{len(valid)}")
+optimalpossibilities = get_smallest_package_amount_combinations(possibilities)
 print(f"Optimal combinations, i.e. smallest amount of packages: \n{optimalpossibilities}")
 optimum = get_smallest_quantum_entanglement(optimalpossibilities)
 
