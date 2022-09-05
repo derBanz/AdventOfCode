@@ -1,5 +1,4 @@
 #!/usr/local/bin/python3
-from genericpath import exists
 import os
 # from math import prod
 
