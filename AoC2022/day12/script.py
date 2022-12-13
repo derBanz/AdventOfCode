@@ -22,13 +22,11 @@ for y, row in enumerate(data):
     for x, char in enumerate(row):
         Node(x, y, char)
 
-for node in Node.nodes.values():
-    node.find_sources()
 
-# print(f"The shortest path takes {Node.find_shortest_path()} steps.")
+print(f"The shortest path from Start to End takes {Node.find_shortest_path('S')} steps.")
 
 
 # Part 2
 print("------- Part 2 -------")
 
-print(Node.find_ideal_location())
+print(f"The location with the shortest path to End takes {Node.find_shortest_path('a')} steps.")
