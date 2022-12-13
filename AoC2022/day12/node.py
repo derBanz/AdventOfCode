@@ -1,7 +1,7 @@
 from string import ascii_lowercase
 
 VALUES = {
-    "S": 0,
+    "S": 1,
     "E": 27
 }
 for i, char in enumerate(ascii_lowercase, 1):
@@ -29,9 +29,37 @@ class Node:
     @classmethod
     def find_shortest_path(cls):
         path = []
-        path.append(cls.end[0])
-        cls.end[0].get_shortest_path(path)
-        return cls.start[0].shortest_path
+        start = cls.start[0]
+        end = cls.end[0]
+        path.append(end)
+        cls.sort_sources(start)
+        end.get_shortest_path(path, start)
+        return start.shortest_path
+
+
+    @classmethod
+    def sort_sources(cls, goal):
+        for node in cls.nodes.values():
+            node.sources.sort(key=lambda s: abs(goal.x - s.x) + abs(goal.y - s.y))
+
+
+    @classmethod
+    def find_ideal_location(cls):
+        potential = list()
+        current = 0
+        end = cls.end[0]
+        for node in cls.nodes.values():
+            if VALUES[node.value] == 1:
+                potential.append(node)
+        for location in potential:
+            if location.shortest_path == 0:
+                path = []
+                cls.sort_sources(location)
+                end.get_shortest_path(path, location)
+            if current == 0 or current > location.shortest_path:
+                current = location.shortest_path
+        return current
+
 
 
     def find_sources(self):
@@ -47,15 +75,14 @@ class Node:
             self.sources.append(east)
         if west != None and VALUES[west.value] + 1 >= VALUES[self.value]:
             self.sources.append(west)
-        self.sources.sort(key=lambda x: abs(self.start[0].x - x.x) + abs(self.start[0].y - x.y))
 
 
-    def get_shortest_path(self, path):
-        if self.value == "S":
+    def get_shortest_path(self, path, goal):
+        if self == goal:
             return
         for source in self.sources:
             if source.value != "E" and (source.shortest_path == 0 or source.shortest_path > self.shortest_path + 1):
                 source.shortest_path = self.shortest_path + 1
                 path.append(source)
-                source.get_shortest_path(path)
+                source.get_shortest_path(path, goal)
         path.pop()

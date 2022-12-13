@@ -25,11 +25,10 @@ for y, row in enumerate(data):
 for node in Node.nodes.values():
     node.find_sources()
 
-print(f"The shortest path takes {Node.find_shortest_path()} steps.")
+# print(f"The shortest path takes {Node.find_shortest_path()} steps.")
 
-# res = ""
-# for node in sorted(Node.nodes.values(), key=lambda x: x.y):
-#     if node.x == 0:
-#         res += "\n"
-#     res += str(node.shortest_path) + " "
-# print(res)
+
+# Part 2
+print("------- Part 2 -------")
+
+print(Node.find_ideal_location())
