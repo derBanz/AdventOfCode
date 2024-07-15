@@ -5,10 +5,8 @@ import derbanz.day1.params.Instructions;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 
@@ -16,17 +14,17 @@ public class Day1 {
 
     private String path = "D:\\Documents\\Programming\\Java\\AdventOfCode\\AoC2023\\src\\main\\resources\\day1\\";
 
-    public int getSumOfCalibrationValues (String file) {
-        Instructions instructions = readInputFile(file);
+    public int getSumOfCalibrationValues (String file, boolean isPartTwo) {
+        Instructions instructions = readInputFile(file, isPartTwo);
         AtomicInteger calibration = new AtomicInteger();
         instructions.getLines().forEach(line -> {
-            calibration.getAndAdd(getCalibrationValueForLine(line));
+            calibration.getAndAdd(getCalibrationValueForLine(instructions.getNumbers(), line));
         });
         return calibration.get();
     }
 
-    private Instructions readInputFile(String file) {
-        Instructions instructions = new Instructions();
+    private Instructions readInputFile(String file, boolean isPartTwo) {
+        Instructions instructions = new Instructions(isPartTwo);
         try (Stream<String> stream = Files.lines(Path.of(path + file))) {
             stream.forEach(instructions::addLine);
         } catch (IOException e) {
@@ -35,14 +33,10 @@ public class Day1 {
         return instructions;
     }
 
-    private int getCalibrationValueForLine(String line) {
-        List<Character> numbers = line.chars().filter(Character::isDigit).mapToObj(ch -> (char) ch).toList();
-        int size = numbers.size();
-        int number = 0;
-        if (size > 0) {
-            number += Character.getNumericValue(numbers.getFirst()) * 10;
-            number += Character.getNumericValue(numbers.get(size - 1));
-        }
-        return number;
+    private int getCalibrationValueForLine(Map<String, Integer> numbers, String line) {
+        String first = numbers.keySet().stream().min(Comparator.comparing(num -> line.contains(num) ? line.indexOf(num) : line.length() + 1)).orElse("0");
+        String last = numbers.keySet().stream().max(Comparator.comparing(line::lastIndexOf)).orElse("0");
+        int result = numbers.get(first) * 10 + numbers.get(last);
+        return result;
     }
 }
