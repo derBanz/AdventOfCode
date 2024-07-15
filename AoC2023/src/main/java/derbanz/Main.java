@@ -1,7 +1,13 @@
 package derbanz;
 
+import derbanz.day1.Day1;
+
 public class Main {
+
+
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Day1 day1 = new Day1();
+        int sum = day1.getSumOfCalibrationValues("input");
+        System.out.println(sum);
     }
 }
