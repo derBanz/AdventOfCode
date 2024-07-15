@@ -31,7 +31,7 @@ public class Instructions {
         this.numbers = numbers;
     }
 
-    public void initialize(boolean isPart2) {
+    private void initialize(boolean isPart2) {
         Map<String, Integer> map = new HashMap<>();
         for (int i = 0; i < 10; i++) {
             map.put(String.valueOf(i), i);
