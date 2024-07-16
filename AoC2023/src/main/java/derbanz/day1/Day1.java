@@ -12,14 +12,12 @@ import java.util.stream.Stream;
 
 public class Day1 {
 
-    private String path = "D:\\Documents\\Programming\\Java\\AdventOfCode\\AoC2023\\src\\main\\resources\\day1\\";
+    private final String path = "D:\\Documents\\Programming\\Java\\AdventOfCode\\AoC2023\\src\\main\\resources\\day1\\";
 
-    public int getSumOfCalibrationValues (String file, boolean isPartTwo) {
+    public int execute(String file, boolean isPartTwo) {
         Instructions instructions = readInputFile(file, isPartTwo);
         AtomicInteger calibration = new AtomicInteger();
-        instructions.getLines().forEach(line -> {
-            calibration.getAndAdd(getCalibrationValueForLine(instructions.getNumbers(), line));
-        });
+        instructions.getLines().forEach(line -> calibration.getAndAdd(getCalibrationValueForLine(instructions.getNumbers(), line)));
         return calibration.get();
     }
 
