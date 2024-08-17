@@ -22,7 +22,8 @@ public class Printer {
                 day.execute(false);
                 day.execute(true);
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
     }
 }
