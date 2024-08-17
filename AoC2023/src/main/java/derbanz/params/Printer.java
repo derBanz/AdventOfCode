@@ -1,8 +1,5 @@
 package derbanz.params;
 
-import derbanz.day1.Day1;
-import derbanz.day2.Day2;
-
 import java.time.Duration;
 import java.time.Instant;
 
@@ -14,27 +11,18 @@ public class Printer {
         System.out.printf("Calculation took %sd %sh %sm %ss %sms %sns%n", between.toDays(), between.toHours(), between.toMinutes(), between.toSeconds(), between.toMillis(), between.toNanos());
     }
 
-    public void doDayTwo(boolean isTest) {
-        Day2 day2 = new Day2();
+    public void doDay(Class<? extends Day> d, boolean isTest) {
+        try {
+            Day day = d.getDeclaredConstructor().newInstance();
 
-        if (isTest) {
-            day2.test(false);
-            day2.test(true);
-        } else {
-            day2.execute(false);
-            day2.execute(true);
-        }
-    }
-
-    public void doDayOne(boolean isTest) {
-        Day1 day1 = new Day1();
-
-        if (isTest) {
-            day1.test(false);
-            day1.test(true);
-        } else {
-            day1.execute(false);
-            day1.execute(true);
+            if (isTest) {
+                day.test(false);
+                day.test(true);
+            } else {
+                day.execute(false);
+                day.execute(true);
+            }
+        } catch (Exception ignored) {
         }
     }
 }

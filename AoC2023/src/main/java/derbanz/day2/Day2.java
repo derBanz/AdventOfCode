@@ -20,7 +20,7 @@ public class Day2 extends Day {
         } else {
             sum = getSumOfGamePowers(instructions);
         }
-        Printer.printResult(String.valueOf(sum), 1, isPartTwo ? 2 : 1, start, isTest);
+        Printer.printResult(String.valueOf(sum), 2, isPartTwo ? 2 : 1, start, isTest);
     }
 
     private int getSumOfPossibleIds(Instructions instructions) {
