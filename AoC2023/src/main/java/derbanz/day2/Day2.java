@@ -3,7 +3,10 @@ package derbanz.day2;
 import derbanz.params.Day;
 import derbanz.params.Instructions;
 import derbanz.params.Printer;
+
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,6 +17,8 @@ public class Day2 extends Day {
         int sum = 0;
         if (!isPartTwo) {
             sum = getSumOfPossibleIds(instructions);
+        } else {
+            sum = getSumOfGamePowers(instructions);
         }
         Printer.printResult(String.valueOf(sum), 1, isPartTwo ? 2 : 1, start, isTest);
     }
@@ -44,6 +49,26 @@ public class Day2 extends Day {
                     break;
                 }
             }
+        });
+        return sum.get();
+    }
+
+    private int getSumOfGamePowers(Instructions instructions) {
+        AtomicInteger sum = new AtomicInteger();
+        instructions.getLines().forEach(line -> {
+            List<String> sets = List.of(line.split(": ")[1].split("; "));
+            Map<String, Integer> maxAmounts = new HashMap<>();
+            sets.forEach(set -> {
+                List<String> colors = List.of(set.split(", "));
+                colors.forEach(color -> {
+                    String[] clr = color.split(" ");
+                    int amount = Integer.parseInt(clr[0]);
+                    String c = clr[1];
+                    maxAmounts.compute(c, (k, v) -> (v == null || amount > v) ? amount : v);
+                });
+            });
+            int power = maxAmounts.values().stream().reduce(1, (x, y) -> x * y);
+            sum.getAndAdd(power);
         });
         return sum.get();
     }

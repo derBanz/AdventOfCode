@@ -23,7 +23,7 @@ public abstract class Day {
         doExecute(isPartTwo, instructions, start, true);
     }
 
-    protected abstract void doExecute(boolean isPartTwo, Instructions instructions, Instant start,  boolean isTest);
+    protected abstract void doExecute(boolean isPartTwo, Instructions instructions, Instant start, boolean isTest);
 
     private Instructions readInputFile(String file) {
         Instructions instructions = new Instructions();
