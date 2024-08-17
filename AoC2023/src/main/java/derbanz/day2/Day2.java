@@ -1,36 +1,21 @@
 package derbanz.day2;
 
-import derbanz.day2.params.Instructions;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
+import derbanz.params.Day;
+import derbanz.params.Instructions;
+import derbanz.params.Printer;
+import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
-public class Day2 {
+public class Day2 extends Day {
 
-    private final String path = "D:\\Documents\\Programming\\Java\\AdventOfCode\\AoC2023\\src\\main\\resources\\day2\\";
-
-    public int execute(String file, boolean isPartTwo) {
-        Instructions instructions = readInputFile(file, isPartTwo);
+    @Override
+    protected void doExecute(boolean isPartTwo, Instructions instructions, Instant start, boolean isTest) {
         int sum = 0;
         if (!isPartTwo) {
             sum = getSumOfPossibleIds(instructions);
         }
-        return sum;
-    }
-
-    private Instructions readInputFile(String file, boolean isPartTwo) {
-        Instructions instructions = new Instructions();
-        try (Stream<String> stream = Files.lines(Path.of(path + file))) {
-            stream.forEach(instructions::addLine);
-        } catch (IOException e) {
-            System.out.println(Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString));
-        }
-        return instructions;
+        Printer.printResult(String.valueOf(sum), 1, isPartTwo ? 2 : 1, start, isTest);
     }
 
     private int getSumOfPossibleIds(Instructions instructions) {

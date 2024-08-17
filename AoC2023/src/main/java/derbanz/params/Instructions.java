@@ -1,4 +1,4 @@
-package derbanz.day2.params;
+package derbanz.params;
 
 import java.util.ArrayList;
 import java.util.List;
