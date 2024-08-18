@@ -2,6 +2,7 @@ package derbanz.params;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 
 public class Printer {
 
@@ -23,7 +24,7 @@ public class Printer {
                 day.execute(true);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString));
         }
     }
 }

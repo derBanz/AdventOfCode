@@ -5,9 +5,7 @@ import derbanz.params.Instructions;
 import derbanz.params.Printer;
 
 import java.time.Instant;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
@@ -30,28 +28,27 @@ public class Day3 extends Day {
         final int maxX = lines.getFirst().length() - 1;
         IntStream.range(0, maxY + 1).forEachOrdered(y -> {
             String line = lines.get(y);
-            Map<Integer, Integer> currNum = new HashMap<>();
+            StringBuilder currNum = new StringBuilder();
             IntStream.range(0, maxX + 1).forEachOrdered(x -> {
-                int num = Character.getNumericValue(line.charAt(x)); // equals -1 for non-numericals
+                char ch = line.charAt(x);
+                int num = Character.getNumericValue(ch); // equals -1 for non-numericals
 
                 if (num >= 0) {
-                    currNum.put(x, num);
+                    currNum.append(ch);
                 }
 
                 if (!currNum.isEmpty() && (num < 0 || x == maxX)) {
                     AtomicBoolean isPart = new AtomicBoolean(false);
-                    IntStream.range(Math.max(0, currNum.keySet().stream().reduce(Integer::min).get() - 1), Math.min(maxX, x + 1) + 1).takeWhile(xi -> !isPart.get()).forEach(xi -> {
+                    IntStream.range(Math.max(0, x - currNum.length() - 1), Math.min(maxX, x) + 1).takeWhile(xi -> !isPart.get()).forEach(xi -> {
                         IntStream.range(Math.max(0, y - 1), Math.min(maxY, y + 1) + 1).takeWhile(yi -> !isPart.get()).forEach(yi -> {
                             char partNum = lines.get(yi).charAt(xi);
                             isPart.set(Character.getNumericValue(partNum) == -1 && partNum != '.');
                         });
                     });
                     if (isPart.get()) {
-                        AtomicInteger number = new AtomicInteger();
-                        currNum.values().forEach(c -> number.set(number.get() * 10 + c));
-                        sum.getAndAdd(number.get());
+                        sum.getAndAdd(Integer.parseInt(currNum.toString()));
                     }
-                    currNum.clear();
+                    currNum.setLength(0);
                 }
             });
         });
