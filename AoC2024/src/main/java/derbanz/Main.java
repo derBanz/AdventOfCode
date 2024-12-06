@@ -5,6 +5,7 @@ import derbanz.day2.Day2;
 import derbanz.day3.Day3;
 import derbanz.day4.Day4;
 import derbanz.day5.Day5;
+import derbanz.day6.Day6;
 import derbanz.params.Printer;
 
 public class Main {
@@ -17,5 +18,6 @@ public class Main {
         printer.doDay(Day3.class, false);
         printer.doDay(Day4.class, false);
         printer.doDay(Day5.class, false);
+        printer.doDay(Day6.class, false);
     }
 }
