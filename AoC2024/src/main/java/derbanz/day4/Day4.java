@@ -7,9 +7,7 @@ import derbanz.params.Printer;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -45,17 +43,17 @@ public class Day4 extends Day {
         int maxY = lines.size();
         if (x > 0 && x < maxX - 1 && y > 0 && y < maxY - 1) {
             boolean masOne = MAS.equals(Character.toString(lines.get(y - 1).charAt(x - 1))
-                    + Character.toString(lines.get(y).charAt(x))
-                    + Character.toString(lines.get(y + 1).charAt(x + 1)));
+                    + lines.get(y).charAt(x)
+                    + lines.get(y + 1).charAt(x + 1));
             boolean masTwo = MAS.equals(Character.toString(lines.get(y + 1).charAt(x - 1))
-                    + Character.toString(lines.get(y).charAt(x))
-                    + Character.toString(lines.get(y - 1).charAt(x + 1)));
+                    + lines.get(y).charAt(x)
+                    + lines.get(y - 1).charAt(x + 1));
             boolean masThree = MAS.equals(Character.toString(lines.get(y - 1).charAt(x + 1))
-                    + Character.toString(lines.get(y).charAt(x))
-                    + Character.toString(lines.get(y + 1).charAt(x - 1)));
+                    + lines.get(y).charAt(x)
+                    + lines.get(y + 1).charAt(x - 1));
             boolean masFour = MAS.equals(Character.toString(lines.get(y + 1).charAt(x + 1))
-                    + Character.toString(lines.get(y).charAt(x))
-                    + Character.toString(lines.get(y - 1).charAt(x - 1)));
+                    + lines.get(y).charAt(x)
+                    + lines.get(y - 1).charAt(x - 1));
             counter.getAndAdd((masOne || masFour) && (masTwo || masThree) ? 1 : 0);
         }
     }
@@ -82,33 +80,33 @@ public class Day4 extends Day {
             String xmas = switch (direction) {
                 case HORIZONTAL -> lines.get(y).substring(x, x + 4);
                 case VERTICAL -> Character.toString(lines.get(y).charAt(x))
-                                + Character.toString(lines.get(y + 1).charAt(x))
-                                + Character.toString(lines.get(y + 2).charAt(x))
-                                + Character.toString(lines.get(y + 3).charAt(x));
+                                + lines.get(y + 1).charAt(x)
+                                + lines.get(y + 2).charAt(x)
+                                + lines.get(y + 3).charAt(x);
                 case HORIZONTAL_BACK -> Character.toString(lines.get(y).charAt(x))
-                        + Character.toString(lines.get(y).charAt(x - 1))
-                        + Character.toString(lines.get(y).charAt(x - 2))
-                        + Character.toString(lines.get(y).charAt(x - 3));
+                        + lines.get(y).charAt(x - 1)
+                        + lines.get(y).charAt(x - 2)
+                        + lines.get(y).charAt(x - 3);
                 case VERTICAL_BACK -> Character.toString(lines.get(y).charAt(x))
-                                + Character.toString(lines.get(y - 1).charAt(x))
-                                + Character.toString(lines.get(y - 2).charAt(x))
-                                + Character.toString(lines.get(y - 3).charAt(x));
+                                + lines.get(y - 1).charAt(x)
+                                + lines.get(y - 2).charAt(x)
+                                + lines.get(y - 3).charAt(x);
                 case TOP_LEFT -> Character.toString(lines.get(y).charAt(x))
-                        + Character.toString(lines.get(y - 1).charAt(x - 1))
-                        + Character.toString(lines.get(y - 2).charAt(x - 2))
-                        + Character.toString(lines.get(y - 3).charAt(x - 3));
+                        + lines.get(y - 1).charAt(x - 1)
+                        + lines.get(y - 2).charAt(x - 2)
+                        + lines.get(y - 3).charAt(x - 3);
                 case TOP_RIGHT -> Character.toString(lines.get(y).charAt(x))
-                        + Character.toString(lines.get(y - 1).charAt(x + 1))
-                        + Character.toString(lines.get(y - 2).charAt(x + 2))
-                        + Character.toString(lines.get(y - 3).charAt(x + 3));
+                        + lines.get(y - 1).charAt(x + 1)
+                        + lines.get(y - 2).charAt(x + 2)
+                        + lines.get(y - 3).charAt(x + 3);
                 case BOTTOM_LEFT -> Character.toString(lines.get(y).charAt(x))
-                        + Character.toString(lines.get(y + 1).charAt(x - 1))
-                        + Character.toString(lines.get(y + 2).charAt(x - 2))
-                        + Character.toString(lines.get(y + 3).charAt(x - 3));
+                        + lines.get(y + 1).charAt(x - 1)
+                        + lines.get(y + 2).charAt(x - 2)
+                        + lines.get(y + 3).charAt(x - 3);
                 case BOTTOM_RIGHT -> Character.toString(lines.get(y).charAt(x))
-                        + Character.toString(lines.get(y + 1).charAt(x + 1))
-                        + Character.toString(lines.get(y + 2).charAt(x + 2))
-                        + Character.toString(lines.get(y + 3).charAt(x + 3));
+                        + lines.get(y + 1).charAt(x + 1)
+                        + lines.get(y + 2).charAt(x + 2)
+                        + lines.get(y + 3).charAt(x + 3);
             };
             counter.getAndAdd(xmas.equals(XMAS) ? 1 : 0);
         });
