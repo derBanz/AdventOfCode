@@ -35,6 +35,8 @@ public class Day5 extends Day {
                 }
             }
         });
+        List<List<Integer>> correctUpdates = new ArrayList<>();
+        List<List<Integer>> erroneousUpdates = new ArrayList<>();
         updates.forEach(update -> {
             AtomicBoolean take = new AtomicBoolean(true);
             List<Integer> computed = new ArrayList<>();
@@ -45,11 +47,39 @@ public class Day5 extends Day {
                     take.set(false);
                 }
             });
-            if (take.get() && computed.size() % 2 == 1) {
-                result.getAndAdd(computed.get(computed.size() / 2));
+            if (take.get()) {
+                correctUpdates.add(update);
+            } else {
+                erroneousUpdates.add(update);
             }
         });
+        if (!isPartTwo) {
+            correctUpdates.forEach(update -> {
+                if (update.size() % 2 == 1) {
+                    result.getAndAdd(update.get(update.size() / 2));
+                }
+            });
+        } else {
+            erroneousUpdates.forEach(update -> {
+                result.getAndAdd(fixUpdate(rules, update));
+            });
+        }
         return result.get();
+    }
+
+    private int fixUpdate(Map<Integer, List<Integer>> rules, List<Integer> update) {
+        update.sort((a, b) -> {
+            List<Integer> aRule = rules.get(a);
+            List<Integer> bRule = rules.get(b);
+            if (aRule != null && aRule.contains(b)) {
+                return -1;
+            } else if (bRule != null && bRule.contains(a)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        return update.size() % 2 == 1 ? update.get(update.size() / 2) : 0;
     }
 
 }
