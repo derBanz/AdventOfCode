@@ -10,7 +10,7 @@ public class Plan {
     private int positionY;
     private Direction facingDirection;
 
-    private List<List<String>> map;
+    private List<List<Integer>> map;
 
     public int getMaxX() {
         return maxX;
@@ -52,11 +52,11 @@ public class Plan {
         this.facingDirection = facingDirection;
     }
 
-    public List<List<String>> getMap() {
+    public List<List<Integer>> getMap() {
         return map;
     }
 
-    public void setMap(List<List<String>> map) {
+    public void setMap(List<List<Integer>> map) {
         this.map = map;
     }
 }
