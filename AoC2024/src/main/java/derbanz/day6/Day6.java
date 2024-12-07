@@ -50,7 +50,9 @@ public class Day6 extends Day {
                     planCopy.setFacingDirection(Direction.EAST);
                     return setObstacle(planCopy);
                 }
-                planCopy.getMap().get(planCopy.getPositionY() - 1).set(planCopy.getPositionX(), -1);
+                if (planCopy.getMap().get(planCopy.getPositionY() - 1).get(planCopy.getPositionX()) == 0) {
+                    planCopy.getMap().get(planCopy.getPositionY() - 1).set(planCopy.getPositionX(), -1);
+                }
             }
             case EAST -> {
                 if (planCopy.getPositionX() == plan.getMaxX()) {
@@ -60,7 +62,9 @@ public class Day6 extends Day {
                     planCopy.setFacingDirection(Direction.SOUTH);
                     return setObstacle(planCopy);
                 }
-                planCopy.getMap().get(planCopy.getPositionY()).set(planCopy.getPositionX() + 1, -1);
+                if (planCopy.getMap().get(planCopy.getPositionY()).get(planCopy.getPositionX() + 1) == 0) {
+                    planCopy.getMap().get(planCopy.getPositionY()).set(planCopy.getPositionX() + 1, -1);
+                }
             }
             case SOUTH -> {
                 if (planCopy.getPositionY() == planCopy.getMaxY()) {
@@ -70,7 +74,9 @@ public class Day6 extends Day {
                     planCopy.setFacingDirection(Direction.WEST);
                     return setObstacle(planCopy);
                 }
-                planCopy.getMap().get(planCopy.getPositionY() + 1).set(planCopy.getPositionX(), -1);
+                if (planCopy.getMap().get(planCopy.getPositionY() + 1).get(planCopy.getPositionX()) == 0) {
+                    planCopy.getMap().get(planCopy.getPositionY() + 1).set(planCopy.getPositionX(), -1);
+                }
             }
             case WEST -> {
                 if (planCopy.getPositionX() == 0) {
@@ -80,7 +86,9 @@ public class Day6 extends Day {
                     planCopy.setFacingDirection(Direction.NORTH);
                     return setObstacle(planCopy);
                 }
-                planCopy.getMap().get(planCopy.getPositionY()).set(planCopy.getPositionX() - 1, -1);
+                if (planCopy.getMap().get(planCopy.getPositionY()).get(planCopy.getPositionX() - 1) == 0) {
+                    planCopy.getMap().get(planCopy.getPositionY()).set(planCopy.getPositionX() - 1, -1);
+                }
             }
         }
         return planCopy;
@@ -208,6 +216,7 @@ public class Day6 extends Day {
     }
 
     private void printPlan(Plan plan) {
+        if (plan == null) return;
         plan.getMap().forEach(planLine -> {
             planLine.forEach(p -> System.out.print(p + "\t"));
             System.out.println();
