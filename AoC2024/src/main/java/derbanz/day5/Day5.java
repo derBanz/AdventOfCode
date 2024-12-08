@@ -60,9 +60,7 @@ public class Day5 extends Day {
                 }
             });
         } else {
-            erroneousUpdates.forEach(update -> {
-                result.getAndAdd(fixUpdate(rules, update));
-            });
+            erroneousUpdates.forEach(update -> result.getAndAdd(fixUpdate(rules, update)));
         }
         return result.get();
     }

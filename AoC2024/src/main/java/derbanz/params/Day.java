@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 
 public abstract class Day {
 
-    ///home/natalia/IdeaProjects/AdventOfCode/AoC2024/src/main/java/derbanz/params/Day.java
     protected final String PATH = FileSystems.getDefault().getPath(System.getProperty("user.home"), "Documents", "Programming", "Java", "AdventOfCode", "AoC2024", "src", "main", "resources").toString();
 
     public void execute(boolean isPartTwo) {

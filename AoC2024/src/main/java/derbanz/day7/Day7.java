@@ -1,19 +1,13 @@
 package derbanz.day7;
 
-import derbanz.day6.params.Direction;
-import derbanz.day6.params.GuardStatus;
-import derbanz.day6.params.Plan;
 import derbanz.params.Day;
 import derbanz.params.Instructions;
 import derbanz.params.Printer;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Function;
 
 public class Day7 extends Day {
 
@@ -57,7 +51,7 @@ public class Day7 extends Day {
     private enum Operator {
         SUM,
         MUL,
-        CAT;
+        CAT
     }
 
 }

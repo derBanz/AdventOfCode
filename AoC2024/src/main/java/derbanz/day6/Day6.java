@@ -195,12 +195,8 @@ public class Day6 extends Day {
                         setOriginalPosition(plan, x, y, Direction.WEST);
                         l.add(1);
                     }
-                    case "#" -> {
-                        l.add(-1);
-                    }
-                    default -> {
-                        l.add(0);
-                    }
+                    case "#" -> l.add(-1);
+                    default -> l.add(0);
                 }
             }
             map.add(l);
@@ -215,13 +211,13 @@ public class Day6 extends Day {
         plan.setFacingDirection(direction);
     }
 
-    private void printPlan(Plan plan) {
-        if (plan == null) return;
-        plan.getMap().forEach(planLine -> {
-            planLine.forEach(p -> System.out.print(p + "\t"));
-            System.out.println();
-        });
-            System.out.println();
-    }
+//    private void printPlan(Plan plan) {
+//        if (plan == null) return;
+//        plan.getMap().forEach(planLine -> {
+//            planLine.forEach(p -> System.out.print(p + "\t"));
+//            System.out.println();
+//        });
+//            System.out.println();
+//    }
 
 }

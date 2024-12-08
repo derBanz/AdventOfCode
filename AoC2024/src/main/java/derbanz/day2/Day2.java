@@ -16,7 +16,7 @@ public class Day2 extends Day {
     private enum ReportStatus {
         NONE,
         ASC,
-        DESC;
+        DESC
     }
 
     @Override
